@@ -1,19 +1,15 @@
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 import SearchForm from "../../components/SearchForm";
 import StartupCard from "@/components/StartupCard";
+import { client } from "@/sanity/lib/client";
 
 export default async function Home({searchParams}: {searchParams: Promise<{ query?:string}>}) {
   const query =  (await searchParams).query
 
-  const posts = [{
-    _createdAt: new Date(),
-    views: 55,
-    author: {_id: 1, name:"Adrian"},
-    _id: 1,
-    description: "This is a description",
-    image: "https://images.unsplash.com/photo-1709884732297-4b3c1a3f725b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZnJlZSUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D",
-    category: "Robots",
-    title: "We Robots" 
-  }]
+  const posts = await client.fetch(STARTUPS_QUERY)
+
+  console.log(JSON.stringify(posts, null, 2))
+
   return (
    <>
    <section className="pink_container">
