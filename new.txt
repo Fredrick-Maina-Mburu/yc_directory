@@ -1,0 +1,6 @@
+# First clean up
+rm -rf node_modules package-lock.json
+npm cache clean --force
+
+# Then install with legacy peer deps
+npm install --legacy-peer-deps
